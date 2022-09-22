@@ -12,12 +12,13 @@ import { NextFunction, Response } from 'express';
 import { AuthService } from './auth.service';
 import { SignDTO, signupDTO } from './auth.dto';
 import { AuthGuard } from '@nestjs/passport';
+import { LocalAuthGuard } from 'src/common/guards/local-auth.guard';
 
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @UseGuards(AuthGuard('local'))
+  @UseGuards(LocalAuthGuard)
   @UsePipes(ValidationPipe)
   @Post('login')
   async login(
