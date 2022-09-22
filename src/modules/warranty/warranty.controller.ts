@@ -29,7 +29,7 @@ export class warrantyController {
 
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @SetMetadata('roles', [Role.Staff])
+  @SetMetadata('roles', [Role.Customer, Role.Staff])
   @UsePipes(ValidationPipe)
   @Post()
   async createWarranty(

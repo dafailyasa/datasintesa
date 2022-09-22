@@ -63,7 +63,9 @@ export class ProductController {
   }
 
   @ApiBearerAuth()
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @SetMetadata('roles', [Role.Staff, Role.Customer])
+
   @Get('')
   async listProduct(@Res() res: Response, @Next() next: NextFunction) {
     try {
