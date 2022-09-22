@@ -60,7 +60,7 @@ export class ProductController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Get('list')
+  @Get('')
   async listProduct(
     @Res() res: Response,
     @Next() next: NextFunction,

@@ -5,12 +5,16 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import config from './configuration/config';
 import { AuthModule } from './modules/auth/auth.module';
+import { ProductModule } from './modules/product/product.module';
 import { UsersModule } from './modules/user/user.module';
+import { WarrantyModule } from './modules/warranty/warranty.module';
 
 @Module({
   imports: [
     AuthModule,
     UsersModule,
+    ProductModule,
+    WarrantyModule,
     ConfigModule.forRoot({
       load: [config],
       isGlobal: true,
