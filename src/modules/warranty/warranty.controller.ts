@@ -20,12 +20,12 @@ import { RolesGuard } from '../../common/guards/roles.guard';
 import { Role } from '../user/user.model';
 import { claimedWarranty, createWarranty } from './warranty.dto';
 import { WarrantyService } from './warranty.service';
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 import { ApiBearerAuth } from '@nestjs/swagger';
 
 @Controller('warranty')
 export class warrantyController {
-  constructor(private readonly warrantyService: WarrantyService) { }
+  constructor(private readonly warrantyService: WarrantyService) {}
 
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard, RolesGuard)
@@ -38,7 +38,11 @@ export class warrantyController {
     @Next() next: NextFunction,
   ) {
     try {
-      if(!mongoose.Types.ObjectId.isValid(body.productId)) throw new HttpException("productId is Not Valid format", HttpStatus.BAD_REQUEST);
+      if (!mongoose.Types.ObjectId.isValid(body.productId))
+        throw new HttpException(
+          'productId is Not Valid format',
+          HttpStatus.BAD_REQUEST,
+        );
 
       const data = await this.warrantyService.create(body);
 
@@ -53,14 +57,11 @@ export class warrantyController {
   @SetMetadata('roles', [Role.Staff])
   @UsePipes(ValidationPipe)
   @Get('list')
-  async list(
-    @Res() res: Response,
-    @Next() next: NextFunction,
-  ) {
+  async list(@Res() res: Response, @Next() next: NextFunction) {
     try {
       const result = await this.warrantyService.listWarrantys();
 
-      return res.status(200).json({ result, status: "success" });
+      return res.status(200).json({ result, status: 'success' });
     } catch (error) {
       next(error);
     }
@@ -80,7 +81,7 @@ export class warrantyController {
     try {
       const result = await this.warrantyService.claimedWarranty(body, id);
 
-      return res.status(200).json({ result, status: "success" });
+      return res.status(200).json({ result, status: 'success' });
     } catch (error) {
       next(error);
     }

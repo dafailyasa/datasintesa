@@ -11,7 +11,6 @@ export class Warranty {
   @Prop({ type: 'string', required: true })
   title: string;
 
-
   @Prop({ type: 'string', required: true })
   description: string;
 

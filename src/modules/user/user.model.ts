@@ -22,13 +22,18 @@ export class User {
   @Prop({ type: 'string', required: true, unique: true })
   email: string;
 
-  @Prop({ type: 'string', required: true, enum: Object.values(Role), default: Role.Customer})
+  @Prop({
+    type: 'string',
+    required: true,
+    enum: Object.values(Role),
+    default: Role.Customer,
+  })
   role: Role;
 
-  @Prop({ type: Boolean, default: true})
+  @Prop({ type: Boolean, default: true })
   status: boolean;
 
-  @Prop({ type: 'string', required: true,})
+  @Prop({ type: 'string', required: true })
   password: string;
 }
 

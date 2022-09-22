@@ -1,4 +1,4 @@
-import { IsBoolean, IsNotEmpty, IsString, MinLength } from "class-validator";
+import { IsBoolean, IsNotEmpty, IsString, MinLength } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class updatePasswordDTO {
@@ -6,12 +6,12 @@ export class updatePasswordDTO {
   @IsNotEmpty()
   @MinLength(8)
   @IsString()
-  password: string
+  password: string;
 }
 
 export class updateStatus {
   @ApiProperty()
   @IsNotEmpty()
   @IsBoolean()
-  status: boolean
+  status: boolean;
 }

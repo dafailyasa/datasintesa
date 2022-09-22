@@ -8,11 +8,13 @@ import { WarrantyService } from './warranty.service';
 
 @Module({
   imports: [
-    MongooseModule.forFeature([{ name: Warranty.name, schema: warrantySchema }]),
+    MongooseModule.forFeature([
+      { name: Warranty.name, schema: warrantySchema },
+    ]),
     ProductModule,
   ],
   controllers: [warrantyController],
   providers: [WarrantyService],
-  exports: [WarrantyService]
+  exports: [WarrantyService],
 })
-export class WarrantyModule { }
+export class WarrantyModule {}

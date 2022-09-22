@@ -22,7 +22,7 @@ import { UserService } from './user.service';
 
 @Controller('users')
 export class UserController {
-  constructor(private readonly usersService: UserService) { }
+  constructor(private readonly usersService: UserService) {}
 
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard, RolesGuard)
@@ -54,7 +54,7 @@ export class UserController {
     try {
       const user = await this.usersService.findUserById(id);
 
-      return res.status(200).json({ result: user, status: "success" });
+      return res.status(200).json({ result: user, status: 'success' });
     } catch (error) {
       next(error);
     }

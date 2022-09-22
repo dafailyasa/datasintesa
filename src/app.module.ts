@@ -19,8 +19,8 @@ import { WarrantyModule } from './modules/warranty/warranty.module';
       load: [config],
       isGlobal: true,
     }),
-     // monggo connection
-     MongooseModule.forRootAsync({
+    // monggo connection
+    MongooseModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: async (configService: ConfigService) => {

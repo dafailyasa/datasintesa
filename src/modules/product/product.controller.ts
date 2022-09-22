@@ -23,7 +23,7 @@ import { ProductService } from './product.service';
 
 @Controller('product')
 export class ProductController {
-  constructor(private readonly productService: ProductService) { }
+  constructor(private readonly productService: ProductService) {}
 
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard, RolesGuard)
@@ -56,7 +56,7 @@ export class ProductController {
     try {
       const products = await this.productService.detail(id);
 
-      return res.status(200).json({ result: products, status: "success" });
+      return res.status(200).json({ result: products, status: 'success' });
     } catch (error) {
       next(error);
     }
@@ -65,14 +65,11 @@ export class ProductController {
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @Get('')
-  async listProduct(
-    @Res() res: Response,
-    @Next() next: NextFunction,
-  ) {
+  async listProduct(@Res() res: Response, @Next() next: NextFunction) {
     try {
       const products = await this.productService.list();
 
-      return res.status(200).json({ result: products, status: "success" });
+      return res.status(200).json({ result: products, status: 'success' });
     } catch (error) {
       next(error);
     }
@@ -92,12 +89,12 @@ export class ProductController {
     try {
       const result = await this.productService.update(id, body);
 
-      return res.status(200).json({ result, status: "success" });
+      return res.status(200).json({ result, status: 'success' });
     } catch (error) {
       next(error);
     }
   }
-  
+
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard, RolesGuard)
   @SetMetadata('roles', [Role.Staff])
@@ -110,7 +107,7 @@ export class ProductController {
     try {
       const result = await this.productService.delete(id);
 
-      return res.status(200).json({ result, status: "success" });
+      return res.status(200).json({ result, status: 'success' });
     } catch (error) {
       next(error);
     }

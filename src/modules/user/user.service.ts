@@ -7,9 +7,7 @@ import { signupDTO } from '../auth/auth.dto';
 
 @Injectable()
 export class UserService {
-  constructor(
-    @InjectModel(User.name) private userModel: Model<User>,
-  ) { }
+  constructor(@InjectModel(User.name) private userModel: Model<User>) {}
   async create(user: signupDTO) {
     try {
       const salt = bcrypt.genSaltSync();
@@ -22,7 +20,7 @@ export class UserService {
         email: user.email,
         password: hashPassword,
         salt: salt,
-      }
+      };
 
       const result = await this.userModel.create(data);
       return result;
@@ -30,7 +28,8 @@ export class UserService {
       if (error.code == 11000) {
         throw new HttpException(
           `Email ${user.email} already registered. Please use another email!`,
-          HttpStatus.BAD_REQUEST);
+          HttpStatus.BAD_REQUEST,
+        );
       }
 
       throw error;
@@ -53,7 +52,9 @@ export class UserService {
     if (status != null || status?.trim() == '') {
       users = await this.userModel.find().sort({ createdAt: -1 });
     } else {
-      users = await this.userModel.find({ status: status }).sort({ createdAt: -1 });
+      users = await this.userModel
+        .find({ status: status })
+        .sort({ createdAt: -1 });
     }
 
     return users;
@@ -63,7 +64,9 @@ export class UserService {
     const salt = bcrypt.genSaltSync();
     const hashPassword = await bcrypt.hash(password, salt);
 
-    const res = await this.userModel.findByIdAndUpdate(userId, { password: hashPassword });
+    const res = await this.userModel.findByIdAndUpdate(userId, {
+      password: hashPassword,
+    });
 
     return res ? true : false;
   }

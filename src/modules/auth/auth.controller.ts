@@ -24,11 +24,11 @@ export class AuthController {
     @Body() body: SignDTO,
     @Res() res: Response,
     @Next() next: NextFunction,
-  ){
+  ) {
     try {
       const accessToken = await this.authService.login(body);
-      
-      return res.status(200).json({accessToken});
+
+      return res.status(200).json({ accessToken });
     } catch (error) {
       next(error);
     }

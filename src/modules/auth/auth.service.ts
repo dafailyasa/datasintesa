@@ -15,8 +15,12 @@ export class AuthService {
 
   async validate(email: string, password: string) {
     const user = await this.userService.findUserByEmail(email);
-    if (!user) throw new HttpException(`User with email ${email} not found`, HttpStatus.BAD_REQUEST)
-    
+    if (!user)
+      throw new HttpException(
+        `User with email ${email} not found`,
+        HttpStatus.BAD_REQUEST,
+      );
+
     const matchPassword = await bcrypt.compare(password, user.password);
     if (!matchPassword) {
       throw new HttpException(
@@ -32,8 +36,8 @@ export class AuthService {
     return access_token;
   }
 
-  async signUp(user: signupDTO){
-    const result = await this.userService.create(user)
+  async signUp(user: signupDTO) {
+    const result = await this.userService.create(user);
     return result;
   }
 
