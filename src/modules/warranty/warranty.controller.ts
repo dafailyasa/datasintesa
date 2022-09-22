@@ -21,11 +21,13 @@ import { Role } from '../user/user.model';
 import { claimedWarranty, createWarranty } from './warranty.dto';
 import { WarrantyService } from './warranty.service';
 import mongoose from "mongoose";
+import { ApiBearerAuth } from '@nestjs/swagger';
 
 @Controller('warranty')
 export class warrantyController {
   constructor(private readonly warrantyService: WarrantyService) { }
 
+  @ApiBearerAuth()
   @UseGuards(JwtAuthGuard, RolesGuard)
   @SetMetadata('roles', [Role.Staff])
   @UsePipes(ValidationPipe)
@@ -46,6 +48,7 @@ export class warrantyController {
     }
   }
 
+  @ApiBearerAuth()
   @UseGuards(JwtAuthGuard, RolesGuard)
   @SetMetadata('roles', [Role.Staff])
   @UsePipes(ValidationPipe)
@@ -63,6 +66,7 @@ export class warrantyController {
     }
   }
 
+  @ApiBearerAuth()
   @UseGuards(JwtAuthGuard, RolesGuard)
   @SetMetadata('roles', [Role.Staff])
   @UsePipes(ValidationPipe)

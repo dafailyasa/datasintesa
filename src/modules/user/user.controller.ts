@@ -12,6 +12,7 @@ import {
   Query,
   SetMetadata,
 } from '@nestjs/common';
+import { ApiBearerAuth } from '@nestjs/swagger';
 import { NextFunction, Response } from 'express';
 import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
 import { RolesGuard } from '../../common/guards/roles.guard';
@@ -23,6 +24,7 @@ import { UserService } from './user.service';
 export class UserController {
   constructor(private readonly usersService: UserService) { }
 
+  @ApiBearerAuth()
   @UseGuards(JwtAuthGuard, RolesGuard)
   @SetMetadata('roles', [Role.Staff])
   @Get()
@@ -41,6 +43,7 @@ export class UserController {
     }
   }
 
+  @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @Get(':id')
   async detailUser(
@@ -57,6 +60,7 @@ export class UserController {
     }
   }
 
+  @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @UsePipes(ValidationPipe)
   @Post(':id/password')
@@ -75,6 +79,7 @@ export class UserController {
     }
   }
 
+  @ApiBearerAuth()
   @UseGuards(JwtAuthGuard, RolesGuard)
   @SetMetadata('roles', [Role.Staff])
   @UsePipes(ValidationPipe)
@@ -86,7 +91,7 @@ export class UserController {
     @Next() next: NextFunction,
   ) {
     try {
-      const result = await this.usersService.updateStatus(body.password, id);
+      const result = await this.usersService.updateStatus(body.status, id);
 
       return res.status(200).json({ result, status: 'success' });
     } catch (error) {

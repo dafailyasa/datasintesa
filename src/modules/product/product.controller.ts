@@ -13,6 +13,7 @@ import {
   Patch,
   SetMetadata,
 } from '@nestjs/common';
+import { ApiBearerAuth } from '@nestjs/swagger';
 import { NextFunction, Response } from 'express';
 import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
 import { RolesGuard } from '../../common/guards/roles.guard';
@@ -24,6 +25,7 @@ import { ProductService } from './product.service';
 export class ProductController {
   constructor(private readonly productService: ProductService) { }
 
+  @ApiBearerAuth()
   @UseGuards(JwtAuthGuard, RolesGuard)
   @SetMetadata('roles', [Role.Staff])
   @UsePipes(ValidationPipe)
@@ -42,6 +44,7 @@ export class ProductController {
     }
   }
 
+  @ApiBearerAuth()
   @UseGuards(JwtAuthGuard, RolesGuard)
   @SetMetadata('roles', [Role.Staff])
   @Get(':id')
@@ -59,6 +62,7 @@ export class ProductController {
     }
   }
 
+  @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @Get('')
   async listProduct(
@@ -74,6 +78,7 @@ export class ProductController {
     }
   }
 
+  @ApiBearerAuth()
   @UseGuards(JwtAuthGuard, RolesGuard)
   @SetMetadata('roles', [Role.Staff])
   @UsePipes(ValidationPipe)
@@ -92,7 +97,8 @@ export class ProductController {
       next(error);
     }
   }
-
+  
+  @ApiBearerAuth()
   @UseGuards(JwtAuthGuard, RolesGuard)
   @SetMetadata('roles', [Role.Staff])
   @Delete(':id')
